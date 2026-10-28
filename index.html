@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Swati's Birthday Surprise 🎂</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #ffb6d5, #ffd6e7, #fff0f7);
+    color: #a51c66;
+    overflow-x: hidden;
+}
+
+.box {
+    width: min(90%, 430px);
+    margin: 60px auto;
+    padding: 30px 22px;
+    background: rgba(255,255,255,0.96);
+    border-radius: 25px;
+    box-shadow: 0 10px 35px rgba(180,50,110,0.25);
+}
+
+.hidden {
+    display: none !important;
+}
+
+h1 {
+    color: #ff3693;
+    font-size: 30px;
+}
+
+h2 {
+    color: #e62e7c;
+}
+
+p {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 9px 0;
+    border: 2px solid #ffc1dc;
+    border-radius: 13px;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #ff4f9a;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #ff4f9a, #ff79b5);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255,79,154,0.3);
+}
+
+.lock {
+    font-size: 65px;
+    animation: lockMove 1.5s infinite alternate;
+}
+
+@keyframes lockMove {
+    from { transform: rotate(-5deg); }
+    to { transform: rotate(5deg); }
+}
+
+/* Cake */
+.cake {
+    position: relative;
+    width: 190px;
+    height: 120px;
+    margin: 35px auto 20px;
+}
+
+.cake-body {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 170px;
+    height: 80px;
+    background: #ff8fba;
+    border-radius: 12px 12px 20px 20px;
+}
+
+.cream {
+    position: absolute;
+    top: 28px;
+    left: 10px;
+    width: 170px;
+    height: 25px;
+    background: white;
+    border-radius: 50%;
+}
+
+.candle {
+    position: absolute;
+    top: 0;
+    left: 85px;
+    width: 20px;
+    height: 45px;
+    background: #ff4f9a;
+    border-radius: 5px;
+}
+
+.flame {
+    position: absolute;
+    top: -25px;
+    left: 0;
+    font-size: 25px;
+    animation: flame .5s infinite alternate;
+}
+
+@keyframes flame {
+    from { transform: scale(.9); }
+    to { transform: scale(1.15); }
+}
+
+.surprise {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 18px;
+    background: #fff0f7;
+    animation: appear 1s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#error {
+    color: #e00046;
+    font-weight: bold;
+}
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    font-size: 25px;
+    animation: floatUp 5s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.footer {
+    font-size: 13px;
+    color: #b45b84;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔐 LOCK SCREEN -->
+
+<div class="box" id="lockScreen">
+
+    <div class="lock">🔐</div>
+
+    <h1>Birthday Surprise 🎂</h1>
+
+    <p>
+        This surprise is specially locked for you 💖
+        <br>
+        Enter your Name & Date of Birth
+    </p>
+
+    <input
+        type="text"
+        id="name"
+        placeholder="Enter Name"
+        autocomplete="off"
+    >
+
+    <input
+        type="date"
+        id="dob"
+    >
+
+    <button onclick="unlock()">
+        🔓 Unlock Surprise
+    </button>
+
+    <p id="error"></p>
+
+    <div class="footer">
+        Made with 💖 specially for Swati
+    </div>
+
+</div>
+
+
+<!-- 🎂 BIRTHDAY PAGE -->
+
+<div class="box hidden" id="birthdayScreen">
+
+    <h1>🎉 Happy Birthday Swati! 🎉</h1>
+
+    <p id="welcome"></p>
+
+    <div class="cake">
+
+        <div class="candle">
+            <div class="flame">🔥</div>
+        </div>
+
+        <div class="cream"></div>
+
+        <div class="cake-body"></div>
+
+    </div>
+
+    <h2>🎂 Make a Wish 🎂</h2>
+
+    <p>
+        Today is your special day! ✨
+        <br>
+        May your birthday be filled with happiness,
+        smiles and beautiful memories. 💕
+    </p>
+
+    <button onclick="openSurprise()">
+        🎁 Open Your Surprise
+    </button>
+
+    <div class="surprise hidden" id="surprise">
+
+        <h2>💖 Special Message 💖</h2>
+
+        <p>
+            Dear Swati,
+            <br><br>
+            Wishing you a very Happy Birthday! 🎂🎉
+            <br><br>
+            May your life always be filled with
+            happiness, success and beautiful moments. 🌸
+            <br><br>
+            Keep smiling and keep shining! ✨💖
+        </p>
+
+        <div style="font-size:45px;">
+            🎈 🎂 🎁 💖 🎉
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* 🔐 LOCK DETAILS */
+
+const correctName = "Swati";
+const correctDOB = "2010-12-30";
+
+
+/* 🔓 UNLOCK */
+
+function unlock() {
+
+    const enteredName =
+        document.getElementById("name").value.trim();
+
+    const enteredDOB =
+        document.getElementById("dob").value;
+
+    const error =
+        document.getElementById("error");
+
+    if (
+        enteredName.toLowerCase() === correctName.toLowerCase()
+        &&
+        enteredDOB === correctDOB
+    ) {
+
+        document
+            .getElementById("lockScreen")
+            .classList.add("hidden");
+
+        document
+            .getElementById("birthdayScreen")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("welcome")
+            .innerHTML =
+            "Welcome, <b>Swati</b> 💖<br>" +
+            "This surprise is specially made for you! ✨";
+
+        createHearts();
+
+    } else {
+
+        error.innerText =
+            "❌ Wrong Name or Date of Birth!";
+
+    }
+}
+
+
+/* 🎁 SURPRISE */
+
+function openSurprise() {
+
+    document
+        .getElementById("surprise")
+        .classList.remove("hidden");
+
+    createHearts();
+}
+
+
+/* 💖 HEART ANIMATION */
+
+function createHearts() {
+
+    const hearts = [
+        "💖",
+        "💕",
+        "💗",
+        "💓",
+        "🌸",
+        "✨"
+    ];
+
+    for (let i = 0; i < 20; i++) {
+
+        const heart =
+            document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.innerText =
+            hearts[
+                Math.floor(
+                    Math.random() * hearts.length
+                )
+            ];
+
+        heart.style.left =
+            Math.random() * 100 + "vw";
+
+        heart.style.animationDuration =
+            (3 + Math.random() * 4) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 8000);
+    }
+}
+
+</script>
+
+</body>
+</html>
